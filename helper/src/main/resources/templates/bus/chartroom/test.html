@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no">
+    <!--自动将网页中的电话号码显示为拨号的超链接-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <!--width宽度height高度，initial-scale初始的缩放比例，minimum-scale允许缩放到的最小比例，maximum-scale允许缩放到的最大比例，user-scalable是否可以手动缩放-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!--IOS设备-->
+    <meta name="apple-touch-fullscreen" content="yes">
+    <!--IOS设备-->
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/weui/css/weui.css}" href="../../../static/weui/css/weui.css"/>
+    <link rel="stylesheet" th:href="@{/weui/css/weui.min.css}" href="../../../static/weui/css/weui.min.css"/>
+    <link rel="stylesheet" th:href="@{/weui/css/jquery-weui.css}" href="../../../static/weui/css/jquery-weui.css"/>
+    <link rel="stylesheet" th:href="@{/weui/css/jquery-weui.min.css}" href="../../../static/weui/css/jquery-weui.min.css"/>
+    <link rel="stylesheet" th:href="@{/font-awesome/css/font-awesome.css}" href="../../../static/font-awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}" href="../../../static/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" th:href="@{/weui/css/example.css}" href="../../../static/weui/css/example.css"/>
+    <link rel="stylesheet" th:href="@{/css/bus/chartroom/chartWindow.css}" href="../../../static/css/bus/chartroom/mainPanel.css"/>
+    <link rel="stylesheet" th:href="@{/css/bus/chartroom/chartWindow.css}" href="../../../static/css/bus/chartroom/chartWindow.css"/>
+    <script th:src="@{/js/jq/jquery-3.3.1.js}" src="../../../static/js/jq/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}" src="../../../static/bootstrap/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/weui/js/jquery-weui.js}" src="../../../static/weui/js/jquery-weui.js" type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/js/sockjs.min.js}" src="../../../static/js/sockjs.min.js"></script>
+    <script th:src="@{/js/stomp.min.js}" src="../../../static/js/stomp.min.js"></script>
+    <script th:src="@{/js/jquery.js}" src="../../../static/js/jquery.js"></script>
+    <script type="text/javascript">
+        function sendMessage() {
+            var message = $("#text").val();
+            var text=document.getElementById("text")
+            showMessage(message,'0');
+            text.value = '';
+        }
+        function videoChart() {
+            alert("sorry the video chart is under development ")
+        }
+        function showMessage(message,user) {
+            var content = document.getElementsByClassName('talk');
+            var li=$('<li></li>');
+            //暂时不做头像
+            if (user == '0') {
+                var span=$('<span class="spanright">'+message+'</span>');
+                li.append(span);
+                $(".talk").append(li);
+            } else if (user == '1') {
+                var charFriend = $("#thisChart").val();
+                if(message.sendId ==  charFriend){
+                    var span=$('<span class="spanleft">'+message.msg+'</span>');
+                    li.append(span);
+                    $(".talk").append(li);
+                }
+            }
+
+            // //msg.msg+" ==sendId"+msg.
+            //
+            // if(message.sendId ==  charFriend){
+            //     $(".talk").append($('<li><span class="friendsay">' + message.msg + '</span></li><br/>'));
+            // }
+            // 内容过多时,将滚动条放置到最底端
+            // var content = document.getElementsByTagName('ul')[0];
+            // var content=document.getElementById("msgDisplay");
+            // $(".talk").scrollTop=$(".talk").scrollHeight;
+            var content= document.getElementById('msgDisplay');
+            content.scrollTop=content.scrollHeight;
+        }
+    </script>
+
+</head>
+<body>
+<div id="chartWindows" class="chartWindows">
+    <nav class="weui_navbar">
+        <div id="title"></div>
+        <a id="back" onclick="showMenu()">返回</a>
+    </nav>
+    <!--消息展示区-->
+    <!--<div class="message">-->
+    <ul class="talk" id="msgDisplay"></ul>
+    <!--</div>-->
+    <!--编辑区-->
+    <div id="editZone" class="weui_tabbar">
+        <!--<img src="../../../static/images/chartroom/videoChat.png" style="width: 120% ;height: 120%">-->
+        <a href="javascript:void(0);" id="videoChart" class="weui_btn weui_btn_mini weui_btn_default" onclick="videoChart()">VC</a>
+        <input id="text" type="text"/>
+        <a href="javascript:void(0);" id="send" class="weui_btn weui_btn_mini weui_btn_default" onclick="sendMessage()">OK</a>
+    </div>
+</div>
+</body>
+</html>

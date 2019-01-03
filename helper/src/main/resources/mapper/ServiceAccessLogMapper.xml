@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.blue.helper.StringHelper.persistence.ServiceAccessLogMapper">
+    <resultMap id="BaseResultMap" type="org.blue.helper.StringHelper.persistence.entity.model.ServiceAccessLog">
+        <id column="log_id" property="logId" jdbcType="BIGINT"/>
+        <result column="service_name" property="serviceName" jdbcType="VARCHAR"/>
+        <result column="request_url" property="requestUrl" jdbcType="VARCHAR"/>
+        <result column="client_ip" property="clientIp" jdbcType="VARCHAR"/>
+        <result column="create_ts" property="createTs" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs"
+               type="org.blue.helper.StringHelper.persistence.entity.model.ServiceAccessLogWithBLOBs"
+               extends="BaseResultMap">
+        <result column="request_data" property="requestData" jdbcType="LONGVARCHAR"/>
+        <result column="response_data" property="responseData" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    log_id, service_name, request_url, client_ip, create_ts
+  </sql>
+    <sql id="Blob_Column_List">
+    request_data, response_data
+  </sql>
+    <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs"
+            parameterType="org.blue.helper.StringHelper.persistence.entity.model.ServiceAccessLogExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from service_access_log
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="org.blue.helper.StringHelper.persistence.entity.model.ServiceAccessLogExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from service_access_log
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from service_access_log
+        where log_id = #{logId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from service_access_log
+    where log_id = #{logId,jdbcType=BIGINT}
+  </delete>
+    <delete id="deleteByExample"
+            parameterType="org.blue.helper.StringHelper.persistence.entity.model.ServiceAccessLogExample">
+        delete from service_access_log
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="org.blue.helper.StringHelper.persistence.entity.model.ServiceAccessLogWithBLOBs"
+            useGeneratedKeys="true">
+        <!--<selectKey resultType="java.lang.Long" keyProperty="logId" order="AFTER" >-->
+        <!--SELECT LAST_INSERT_ID()-->
+        <!--</selectKey>-->
+        insert into service_access_log (service_name, request_url, client_ip,
+        create_ts, request_data, response_data, server_ip, consumed_time
+        )
+        values (#{serviceName,jdbcType=VARCHAR}, #{requestUrl,jdbcType=VARCHAR}, #{clientIp,jdbcType=VARCHAR},
+        #{createTs,jdbcType=TIMESTAMP}, #{requestData,jdbcType=LONGVARCHAR}, #{responseData,jdbcType=LONGVARCHAR},
+        #{serverIp,jdbcType=VARCHAR},#{consumedTime,jdbcType=BIGINT}
+        )
+    </insert>
+    <insert id="insertSelective"
+            parameterType="org.blue.helper.StringHelper.persistence.entity.model.ServiceAccessLogWithBLOBs"
+            useGeneratedKeys="true">
+        <!--<selectKey resultType="java.lang.Long" keyProperty="logId" order="AFTER" >-->
+        <!--SELECT LAST_INSERT_ID()-->
+        <!--</selectKey>-->
+        insert into service_access_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="serviceName != null">
+                service_name,
+            </if>
+            <if test="requestUrl != null">
+                request_url,
+            </if>
+            <if test="clientIp != null">
+                client_ip,
+            </if>
+            <if test="createTs != null">
+                create_ts,
+            </if>
+            <if test="requestData != null">
+                request_data,
+            </if>
+            <if test="responseData != null">
+                response_data,
+            </if>
+            <if test="serverIp != null">
+                server_ip,
+            </if>
+            <if test="consumedTime != null">
+                consumed_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="serviceName != null">
+                #{serviceName,jdbcType=VARCHAR},
+            </if>
+            <if test="requestUrl != null">
+                #{requestUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="clientIp != null">
+                #{clientIp,jdbcType=VARCHAR},
+            </if>
+            <if test="createTs != null">
+                #{createTs,jdbcType=TIMESTAMP},
+            </if>
+            <if test="requestData != null">
+                #{requestData,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="responseData != null">
+                #{responseData,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="serverIp != null">
+                #{serverIp,jdbcType=VARCHAR},
+            </if>
+            <if test="consumedTime != null">
+                #{consumedTime,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample"
+            parameterType="org.blue.helper.StringHelper.persistence.entity.model.ServiceAccessLogExample"
+            resultType="java.lang.Integer">
+        select count(*) from service_access_log
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update service_access_log
+        <set>
+            <if test="record.logId != null">
+                log_id = #{record.logId,jdbcType=BIGINT},
+            </if>
+            <if test="record.serviceName != null">
+                service_name = #{record.serviceName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.requestUrl != null">
+                request_url = #{record.requestUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="record.clientIp != null">
+                client_ip = #{record.clientIp,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createTs != null">
+                create_ts = #{record.createTs,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.requestData != null">
+                request_data = #{record.requestData,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="record.responseData != null">
+                response_data = #{record.responseData,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExampleWithBLOBs" parameterType="map">
+        update service_access_log
+        set log_id = #{record.logId,jdbcType=BIGINT},
+        service_name = #{record.serviceName,jdbcType=VARCHAR},
+        request_url = #{record.requestUrl,jdbcType=VARCHAR},
+        client_ip = #{record.clientIp,jdbcType=VARCHAR},
+        create_ts = #{record.createTs,jdbcType=TIMESTAMP},
+        request_data = #{record.requestData,jdbcType=LONGVARCHAR},
+        response_data = #{record.responseData,jdbcType=LONGVARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update service_access_log
+        set log_id = #{record.logId,jdbcType=BIGINT},
+        service_name = #{record.serviceName,jdbcType=VARCHAR},
+        request_url = #{record.requestUrl,jdbcType=VARCHAR},
+        client_ip = #{record.clientIp,jdbcType=VARCHAR},
+        create_ts = #{record.createTs,jdbcType=TIMESTAMP}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="org.blue.helper.StringHelper.persistence.entity.model.ServiceAccessLogWithBLOBs">
+        update service_access_log
+        <set>
+            <if test="serviceName != null">
+                service_name = #{serviceName,jdbcType=VARCHAR},
+            </if>
+            <if test="requestUrl != null">
+                request_url = #{requestUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="clientIp != null">
+                client_ip = #{clientIp,jdbcType=VARCHAR},
+            </if>
+            <if test="createTs != null">
+                create_ts = #{createTs,jdbcType=TIMESTAMP},
+            </if>
+            <if test="requestData != null">
+                request_data = #{requestData,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="responseData != null">
+                response_data = #{responseData,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where log_id = #{logId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs"
+            parameterType="org.blue.helper.StringHelper.persistence.entity.model.ServiceAccessLogWithBLOBs">
+    update service_access_log
+    set service_name = #{serviceName,jdbcType=VARCHAR},
+      request_url = #{requestUrl,jdbcType=VARCHAR},
+      client_ip = #{clientIp,jdbcType=VARCHAR},
+      create_ts = #{createTs,jdbcType=TIMESTAMP},
+      request_data = #{requestData,jdbcType=LONGVARCHAR},
+      response_data = #{responseData,jdbcType=LONGVARCHAR}
+    where log_id = #{logId,jdbcType=BIGINT}
+  </update>
+    <update id="updateByPrimaryKey"
+            parameterType="org.blue.helper.StringHelper.persistence.entity.model.ServiceAccessLog">
+    update service_access_log
+    set service_name = #{serviceName,jdbcType=VARCHAR},
+      request_url = #{requestUrl,jdbcType=VARCHAR},
+      client_ip = #{clientIp,jdbcType=VARCHAR},
+      create_ts = #{createTs,jdbcType=TIMESTAMP}
+    where log_id = #{logId,jdbcType=BIGINT}
+  </update>
+
+    <select id="selectDynamic" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        from #{tableName}
+        <trim prefix="WHERE (" suffix=")" prefixOverrides="AND |OR ">
+            <if test="serviceName != null">
+                AND service_name like #{serviceName,jdbcType=VARCHAR}
+            </if>
+            <if test="requestUrl != null">
+                AND request_url like #{requestUrl,jdbcType=VARCHAR}
+            </if>
+            <if test="clientIp != null">
+                AND client_ip like #{clientIp,jdbcType=VARCHAR}
+            </if>
+            <if test="createTs != null">
+                AND create_ts = #{createTs,jdbcType=TIMESTAMP}
+            </if>
+            <if test="requestData != null">
+                AND request_data like #{requestData,jdbcType=LONGVARCHAR}
+            </if>
+            <if test="responseData != null">
+                AND response_data like #{responseData,jdbcType=LONGVARCHAR}
+            </if>
+        </trim>
+        order by create_ts desc
+    </select>
+</mapper>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{/js/jquery-1.7.2.min.js}" type="text/javascript" charset="utf-8"></script>
+    <script>
+        $(document).ready(function() {
+            showResult();
+        });
+        // function getParameter(param) {
+        //     var query = window.location.search; //获取URL地址中？后的所有字符
+        //     var iLen = param.length; //获取你的参数名称长度
+        //     var iStart = query.indexOf(param); //获取你该参数名称的其实索引
+        //     if(iStart == -1) //-1为没有该参数
+        //         return "";
+        //     iStart += iLen + 1;
+        //     var iEnd = query.indexOf("&", iStart); //获取第二个参数的其实索引
+        //     if(iEnd == -1) //只有一个参数
+        //         return query.substring(iStart); //获取单个参数的参数值
+        //     return query.substring(iStart, iEnd); //获取第二个参数的值
+        // }
+        //
+        // function init() {
+        //     var param = getParameter("id");
+        //     document.getElementById("a").value = param;
+        // }
+        // function getUploadResult() {
+        //     var print = document.getElementById("resultBody");
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "/helper/upload_prog/uploadResult",
+        //         data: "{\"password\":\""+pwd+ "\",\"userName\":\""+userName+ "\",\"mobile\":\"" + mobile+ "\"}",
+        //         dataType:"json",
+        //         contentType:"application/json",
+        //         success: function(data) {
+        //            var formPart=data.object;
+        //            var length=formPart.length;
+        //             $(body).append($('<span>Form: </span><br>'));
+        //            for(var i = 0; i < length; i++) {
+        //                var part=formPart[i];
+        //                var span =$('<span></span><br>');
+        //                span.innerHTML="name="+part.name+";value="+part.value+";fileName="+part.fileName+";filePath="+part.newFileSavePath+";fileSize="+part.fileSize;
+        //                $(body).append(span);
+        //            }
+        //         },
+        //         error:function (XMLHttpRequest) {
+        //             alert("服务忙，请重试","提示框");
+        //             return;
+        //         }
+        //     });
+        // }
+        function showResult() {
+            var print = document.getElementById("resultBody");
+            var formPart=$("#listFormPart").val();
+            var length=formPart.length;
+            $(body).append($('<span>Form: </span><br>'));
+            for(var i = 0; i < length; i++) {
+                var part=formPart[i];
+                var span =$('<span></span><br>');
+                span.innerHTML="name="+part.name+";value="+part.value+";fileName="+part.fileName+";filePath="+part.newFileSavePath+";fileSize="+part.fileSize;
+                $(body).append(span);
+            }
+        }
+    </script>
+</head>
+<body id="resultBody">
+ <input id="listFormPart" type="hidden" th:value='${listFormPart}'>
+</body>
+</html>

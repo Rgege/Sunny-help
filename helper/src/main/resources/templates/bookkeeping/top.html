@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes"/>
+    <title></title>
+
+
+    <link rel="stylesheet" th:href="@{/font-awesome/css/font-awesome.css}"/>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}"
+          href="../../static/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-select.min.css}"
+          href="../../static/bootstrap/css/bootstrap-select.min.css"/>
+    <link rel="stylesheet" th:href="@{/sweetalert/sweetalert.css}" href="../../static/sweetalert/sweetalert.css"
+          type="text/css"/>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-datetimepicker.min.css}"
+          href="../../static/bootstrap/css/bootstrap-datetimepicker.min.css"
+          type="text/css"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bus/bookkeeping/menu.css}"
+          href="../../static/css/bus/bookkeeping/menu.css"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/jq-menu/jquery.mmenu.all.css}"
+          href="../../static/jq-menu/jquery.mmenu.all.css"/>
+
+    <script type="text/javascript" th:src="@{/js/jq/jquery-3.2.1.min.js}"
+            src="../../static/js/jq/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" th:src="@{/jq-menu/jquery.mmenu.all.js}"
+            src="../../static/jq-menu/jquery.mmenu.all.js"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/tools/lightFont.css}"
+          href="../../static/css/tools/lightFont.css"/>
+
+    <script th:src="@{/bootstrap/js/Popper.min.js}" src="../../static/bootstrap/js/Popper.min.js" type="text/javascript"
+            charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}" src="../../static/bootstrap/js/bootstrap.min.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/bootstrap-select.min.js}" src="../../static/bootstrap/js/bootstrap-select.min.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/sweetalert/sweetalert.js}" src="../../static/sweetalert/sweetalert.js" type="text/javascript"
+            charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/bootstrap-select.min.js}" src="../../static/bootstrap/js/bootstrap-select.min.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/bootstrap-datetimepicker.min.js}"
+            src="../../static/bootstrap/js/bootstrap-datetimepicker.min.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/bootstrap-datetimepicker.zh-CN.js}"
+            src="../../static/bootstrap/js/bootstrap-datetimepicker.zh-CN.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/moment-with-locales.js}" src="../../static/bootstrap/js/moment-with-locales.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/bootstrap-paginator.js}" src="../../static/bootstrap/js/bootstrap-paginator.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/js/bus/bookkeeping/common.js}" src="../../static/js/bus/bookkeeping/common.js"
+            type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div th:fragment="top">
+    <!--头部 start-->
+        <nav id="heahNav" class="navbar navbar-default n">
+            <div class="container">
+                    <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#menu" class="fa fa-list light-font" style="color: #b4dbed;font-size: large;width: 10%"></a></li>
+                    </ul>
+            </div>
+        </nav>
+    <nav id="menu">
+        <ul>
+            <li> &nbsp;&nbsp;</li>
+            <li> &nbsp;&nbsp;<a th:href="@{/tally/home}" href="homePage.html" class="glyphicon glyphicon-home"> &nbsp;&nbsp;首页</a>
+            </li>
+            <li> &nbsp;&nbsp;<a th:href="@{/tally/record}" href="record.html" class="glyphicon glyphicon-bookmark">
+                &nbsp;&nbsp;新建记账 </a></li>
+            <li> &nbsp;&nbsp;<a th:href="@{/tally/directory}" href="directory.html" class="glyphicon glyphicon-book">
+                &nbsp;&nbsp;记录查看</a></li>
+            <li> &nbsp;&nbsp;<a class="glyphicon glyphicon-user"> &nbsp;&nbsp;个人中心</a>
+                <ul>
+                    <li>&nbsp;&nbsp;<a class="glyphicon glyphicon-home"> &nbsp;&nbsp;用户设置</a>
+                        <ul>
+                            <li> &nbsp;&nbsp;<a href="#" class="glyphicon glyphicon-home"> &nbsp;&nbsp;个人资料</a></li>
+                            <li> &nbsp;&nbsp;<a href="#" class="glyphicon glyphicon-home"> &nbsp;&nbsp;安全设置</a></li>
+                        </ul>
+                    </li>
+                    <li> &nbsp;&nbsp;<a href="" class="glyphicon glyphicon-comment"> &nbsp;&nbsp;通知</a></li>
+                </ul>
+            </li>
+            <li> &nbsp;&nbsp;<a th:href="@{/tally/directory}" href="directory.html" class="glyphicon glyphicon-cog">
+                &nbsp;&nbsp;设置</a></li>
+            <li>&nbsp;&nbsp;<a class="glyphicon glyphicon-thumbs-up"> &nbsp;&nbsp;关于我们</a>
+            </li>
+
+        </ul>
+    </nav>
+</div>
+</body>
+</html>

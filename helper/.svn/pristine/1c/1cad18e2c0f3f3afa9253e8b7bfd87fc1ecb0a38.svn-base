@@ -1,0 +1,60 @@
+server:
+    port: 8808
+jdbc:
+    driverClassName: com.mysql.jdbc.Driver
+    password: 'xrln_47928@love'
+    url: 'jdbc:mysql://localhost:3306/helper'
+    username: 'root'
+#jdbc:
+#    driverClassName: com.mysql.jdbc.Driver
+#    url: 'jdbc:mysql://10.201.128.151:3306/test?useUnicode=true&characterEncoding=UTF-8'
+#    username: 'root'
+#    password: 'bl2015'
+spring:
+  http:
+    multipart:
+        max-file-size: 5MB
+        max-request-size: 100MB
+  redis:
+    maxIdle: 30
+    maxTotal: 50
+    timeBetweenEvictionRunsMillis: 30000
+    testOnBorrow: true
+    host: 'localhost'
+    port: 6379
+    database: 4
+#    password: xrln47928@love
+    url: 'http://localhost:6379/4'
+    url2: 'http://localhost:6379/4'
+    cluster:
+      nodes: 'localhost:6379'
+      max-redirects: 3
+#mongo:
+#    autoConnectRetry: 1
+#    collection:
+#        discount: discount
+#        member: memberInfo
+#        receipt: receipt
+#        receipt_exception: receiptException
+#    connectTimeout: 1000
+#    connectionsPerHost: 8
+#    credentials: 'allen:xrln47928@211.149.178.158:27017/admin'
+#    dbname: admin
+#    host: '211.149.178.158'
+#    maxWaitTime: 1500
+#    port: 27017
+#    replicaset: '211.149.178.158:27017'
+#    slaveOk: 1
+#    socketKeepAlive: 0
+#    socketTimeout: 1500
+#    threadsAllowedToBlockForConnectionMultiplier: 4
+#    writeConcern: SAFE
+QRCodePath: 'C:\QRCode\'
+filePath: 'C:\testFile\'
+
+#上传下载
+breakpoint:
+  upload:
+    dir: D:/data0/uploads/
+    #1024*1024=1 048 576,5M=5 242 880
+    chunkSize: 5 242 880

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>新建记录</title>
+
+    <!--<link rel="stylesheet" th:href="@{/font-awesome/css/font-awesome.css}"/>-->
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}"
+          href="../../static/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-select.min.css}"
+          href="../../static/bootstrap/css/bootstrap-select.min.css"/>
+    <link rel="stylesheet" th:href="@{/sweetalert/sweetalert.css}" href="../../static/sweetalert/sweetalert.css"
+          type="text/css"/>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-datetimepicker.min.css}"
+          href="../../static/bootstrap/css/bootstrap-datetimepicker.min.css"
+          type="text/css"/>
+    <link rel="stylesheet" th:href="@{/json/json_beautify.css}"
+          href="../../static/json/json_beautify.css"
+          type="text/css"/>
+    <style>
+
+    </style>
+    <script th:src="@{/bootstrap/js/Popper.min.js}" src="../../static/bootstrap/js/Popper.min.js" type="text/javascript"
+            charset="utf-8"></script>
+    <script th:src="@{/js/jq/jquery-3.3.1.js}" src="../../static/js/jq/jquery-3.3.1.js" type="text/javascript"
+            charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}" src="../../static/bootstrap/js/bootstrap.min.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/bootstrap-select.min.js}" src="../../static/bootstrap/js/bootstrap-select.min.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/sweetalert/sweetalert.js}" src="../../static/sweetalert/sweetalert.js" type="text/javascript"
+            charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/bootstrap-select.min.js}" src="../../static/bootstrap/js/bootstrap-select.min.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/bootstrap-datetimepicker.min.js}"
+            src="../../static/bootstrap/js/bootstrap-datetimepicker.min.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/bootstrap-datetimepicker.zh-CN.js}"
+            src="../../static/bootstrap/js/bootstrap-datetimepicker.zh-CN.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/moment-with-locales.js}" src="../../static/bootstrap/js/moment-with-locales.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/bootstrap-paginator.js}" src="../../static/bootstrap/js/bootstrap-paginator.js"
+            type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div th:fragment="top">
+    <div class="container-fluid">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">TallyRope</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a th:href="@{/tally/home}" href="homePage.html">首页 <span
+                                class="sr-only">(current)</span></a></li>
+                        <li><a th:href="@{/tally/record}" href="record.html">新建记录 </a></li>
+                        <li><a th:href="@{/tally/directory}" href="directory.html">记录查看</a></li>
+                        <!--<li class="dropdown">-->
+                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
+                        <!--<ul class="dropdown-menu">-->
+                        <!--<li><a href="#">Action</a></li>-->
+                        <!--<li><a href="#">Another action</a></li>-->
+                        <!--<li><a href="#">Something else here</a></li>-->
+                        <!--<li role="separator" class="divider"></li>-->
+                        <!--<li><a href="#">Separated link</a></li>-->
+                        <!--<li role="separator" class="divider"></li>-->
+                        <!--<li><a href="#">One more separated link</a></li>-->
+                        <!--</ul>-->
+                        <!--</li>-->
+                    </ul>
+                    <form class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="搜索记录">
+                        </div>
+                        <button type="submit" class="btn btn-default">搜索</button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a th:href="@{/tally/login}">登录</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">用户昵称 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">财富情况</a></li>
+                                <li><a href="#">账号设置</a></li>
+                                <li><a href="#">我的计划</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">about us</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    </div>
+</div>
+</body>
+</html>

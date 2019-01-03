@@ -1,0 +1,46 @@
+package org.blue.helper.StringHelper.controller.support.rsp;
+
+/**
+ * @Description <P></P>
+ * @Author v-Rui.Xiong@bl.com
+ * @Date 2018/12/27
+ * @Version 1.0.0
+ **/
+public class FileRsp {
+    private String fileName;
+    private Double fileSzie;
+    private String fileType;
+
+    @Override
+    public String toString() {
+        return "FileRsp{" +
+                "fileName='" + fileName + '\'' +
+                ", fileSzie=" + fileSzie +
+                ", fileType='" + fileType + '\'' +
+                '}';
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public Double getFileSzie() {
+        return fileSzie;
+    }
+
+    public void setFileSzie(Double fileSzie) {
+        this.fileSzie = fileSzie;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+}

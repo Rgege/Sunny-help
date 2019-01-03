@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{/js/jquery-1.7.2.min.js}" type="text/javascript" charset="utf-8"></script>
+    <script>
+        function createQRCode() {
+            var saveData = $("#saveData").val();
+            $.ajax({
+                type: "POST",
+                url: "/helper/QRCode/creatQRCode",
+                // headers: {"token":token},
+                data: "{\"saveData\":\"" + saveData + "\"}",
+                dataType: "json",
+                contentType: "application/json",
+                success: function (data) {
+                    var QRName=data.object.QRCode.imageName;
+                    console.log("QRName:"+QRName)
+                    showQRCode(QRName);
+                },
+                error: function (XMLHttpRequest) {
+                    alert("服务忙，请重试", "提示框");
+                }
+            });
+        }
+        function showQRCode(QRName) {
+            console.log("==============into showQRCode function============QRName:"+QRName)
+            var QRImg=document.getElementById("QRCode");
+            QRImg.src="/helper/QRCode/getQRCodeImg?QRName="+QRName;
+            // document.QRCode.src="/helper/QRCode/getQRCodeImg?QRName="+QRName;
+            // var img=$('<img src="/helper/QRCode/getQRCodeImg?QRName="+QRName>');
+            // $("#imgDetail").append(img);
+        }
+    </script>
+</head>
+<body>
+ <div>
+     二维码中存储的数据：<textarea name="saveData" id="saveData"></textarea>
+     生成二维码：<input type="button" onclick="createQRCode()">
+ </div>
+<div id="imgDetail">
+    <img id="QRCode">
+</div>
+</body>
+</html>

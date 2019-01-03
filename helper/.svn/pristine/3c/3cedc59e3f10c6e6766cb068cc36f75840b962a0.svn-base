@@ -1,0 +1,20 @@
+package org.blue.helper.StringHelper.service.impl;
+
+import org.blue.helper.StringHelper.controller.support.rsp.FileRsp;
+import org.blue.helper.StringHelper.service.CloudStorageService;
+
+import java.util.List;
+
+/**
+ * @Description <P></P>
+ * @Author v-Rui.Xiong@bl.com
+ * @Date 2018/12/27
+ * @Version 1.0.0
+ **/
+public class CloudStorageServiceImpl implements CloudStorageService {
+
+    @Override
+    public List<FileRsp> qureFileList(String userId, String folderName) {
+        return null;
+    }
+}

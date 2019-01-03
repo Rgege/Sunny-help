@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+    Remove this if you use the .htaccess -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>osp-mebr-gateway</title>
+    <meta name="description" content="" />
+    <meta name="author" content="Administrator" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/login.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/global.css}" type="text/css"/>
+    <script th:src="@{/js/jquery-1.7.2.min.js}" type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/js/html5.js}" type="text/javascript" charset="utf-8"></script>
+
+    <script>
+        // $(document).ready(function() {
+        //     $('#referrer').val(document.referrer);
+        //     $('.bxslider').bxSlider({
+        //         auto : true,
+        //         controls : false,
+        //         touchEnabled : true,
+        //     });
+        // });
+        var prevLink = document.referrer;
+        function doLogin() {
+            var userName = $("#userName").val();
+            var pwd = $("#pwd").val();
+            $.ajax({
+                type: "POST",
+                url: "/helper/userInfo/doLogin",
+                data: "{\"password\":\"" + pwd + "\",\"userName\":\"" + userName + "\"}",
+                dataType: "json",
+                contentType:"application/json",
+                success: function (data) {
+                    if (data != null && data != "") {
+                        console.log(data)
+                        if (data.resCode == "100000") {
+                            var token=data.object.token;
+                            sessionStorage.setItem("token",token);
+                            // if(window.history !=null ){//若是从其他页面转发过来登录  则登录完成跳回
+                            //     window.history.back(-1)
+                            // }else{//跳转首页
+                            //     alert("登陆成功")
+                            // }
+                            if($.trim(prevLink)==''){
+                                location.href = '/helper/tally/home';
+                            }else{
+                                if(prevLink.indexOf('/helper/')==-1){//来自其它站点
+                                    location.href = '/helper/tally/home';
+                                }
+                                if(prevLink.indexOf('register.html')!=-1){//来自注册页面
+                                    location.href = '/helper/tally/home';
+                                }
+                                location.href = prevLink;
+                            }
+                        } else {
+                            alert(data.messge);
+                        }
+                    }
+                },
+                error: function (XMLHttpRequest) {
+                    alert("服务忙，请重试", "提示框");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div class="login">
+    <div class="login-title"><p>登录</p>
+        <i></i>
+    </div>
+    <form method="post" action="">
+        <div class="login-bar">
+            <ul>
+                <li><img th:src="@{/images/login_user.png}"><input id="userName" type="text" class="text" placeholder="请输入用户名或手机号" /></li>
+                <li><img th:src="@{/images/login_pwd.png}"><input id="pwd" type="password" class="psd" placeholder="请输入密码" /></li>
+                <!--<li><input id="referrer" type="text" name="referrer" class="form-control" style="display:none;"></li>-->
+            </ul>
+        </div>
+        <div class="login-btn">
+            <button class="submit" type="button" onclick="doLogin()">登陆</button>
+            <a th:href="@{/userInfo/register}"><div class="login-reg"><p>莫有账号，先注册</p></div></a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

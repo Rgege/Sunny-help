@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My WebSocket</title>
+    <link rel="stylesheet" th:href="@{/css/websocket.css}"/>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}"/>
+    <script th:src="@{/js/jquery-1.7.2.min.js}" type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}" type="text/javascript" charset="utf-8"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            cheackLogin();
+        });
+
+        function cheackLogin() {
+            var token = sessionStorage.getItem("token");
+            if (token == null || token == "") {
+                window.location.href = "/helper/userInfo/login";
+            } else {
+                getUserByToken();
+                var userid=$("#user").val();
+                if(userid!=null && userid!="" && userid!="undefined"){
+                    showFriends();
+                }
+            }
+        }
+        function getUserByToken() {
+            var userId=null;
+            var url="/helper/userInfo/getOnlineUser";
+            var data={"token": token  };
+            $.post(url,data,function (data) {
+                console.log(data.resCode);
+                // alert("登录成功1"+data.resCode)
+                if (data.resCode == "100000") {
+                    // alert("hhhhhhhhhhhhhhhh");
+                    userId=data.object.id;
+                    $("#user").val(userId);
+                    // alert(data.object.id);
+                }else if(data.resCode == "05111002"){
+                    // alert("登录不成功2");
+                    window.location.href = "/helper/userInfo/login";
+                }else {
+                    window.location.href = "/helper/userInfo/login";
+                }
+            },'json');
+
+            return userId;
+        }
+
+        var token = sessionStorage.getItem("token");
+        var websocket = null;
+        var curPath = window.document.location.href;
+        var BASE_URL = curPath.substring(0, curPath.indexOf("helper")).replace("http", "ws");
+        var url = 'helper/websocket';
+
+
+        //判断当前浏览器是否支持WebSocket
+        if ('WebSocket' in window) {
+            //ws://localhost:8084/websocket
+            var userId = $("#user").val();
+            websocket = new WebSocket(BASE_URL + url + '?token=' + token + "&id=" + userId);
+        }
+        else {
+            alert('Not support websocket')
+        }
+        //连接发生错误的回调方法
+        websocket.onerror = function () {
+            setMessageInnerHTML("error");
+        };
+
+        //连接成功建立的回调方法
+        websocket.onopen = function (event) {
+            setMessageInnerHTML("open");
+        }
+
+        //接收到消息的回调方法
+        websocket.onmessage = function (event) {
+            setMessageInnerHTML(event.data);
+        }
+
+        //连接关闭的回调方法
+        websocket.onclose = function () {
+            setMessageInnerHTML("close");
+        }
+
+        //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+        window.onbeforeunload = function () {
+            websocket.close();
+        }
+
+        //将消息显示在网页上
+        function setMessageInnerHTML(innerHTML) {
+            // document.getElementById('message').innerHTML += innerHTML + '<br/>';
+            $(".talk").append($('<span class="friendsay">' + innerHTML + '</span><br/>'));
+        }
+
+        //关闭连接
+        function closeWebSocket() {
+            websocket.close();
+        }
+
+        //发送消息
+        function send() {
+            // var message = document.getElementById('text').value;
+            var message = $(".text").val();
+            $(".talk").append($('<span class="selfsay">' + message + '</span><br/>'));
+            websocket.send(message);
+        }
+
+        function getId() {
+            var arr = new Array();
+            $("#friendShow :checkbox[checked]").each(function (i) {
+                arr[i] = $(this).val();
+            });
+            console.log(arr[0])
+            return arr[0];
+        }
+
+        function addFriend() {
+            getId()
+            var id = getId();
+            if (id == null || id == "") {
+                alert("请选择至少一个好友");
+                return;
+            }
+            var param = {"frindId": id};
+            $.ajax({
+                type: "POST",
+                url: "/helper/userInfo/addFriends",
+                data: JSON.stringify(param),
+                beforeSend: function (request) {
+                    request.setRequestHeader("token", token);
+                },
+                dataType: "json",
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    showFriends();
+                },
+                error: function (XMLHttpRequest) {
+                    alert("服务忙，请重试", "提示框");
+                }
+            });
+        }
+
+        function serchUsers() {
+            var params = $("#serchParam").val();
+            $.ajax({
+                type: "POST",
+                url: "/helper/userInfo/getUseInfo",
+                data: "{\"serchParam\":\"" + params + "\"}",
+                dataType: "json",
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    if (data.resCode == "100000") {
+                        var userList = data.object;
+                        var length = userList.length;
+                        $("#rspUser").empty();
+                        for (var i = 0; i < length; i++) {
+                            var user = userList[i];
+                            console.log("userid:" + user.id);
+                            var li = $('<li></li>');
+                            var checkBox = $('<input type="checkbox" class="user" value=' + user.id + ' /><span>' + user.id + ':' + user.nickName + '</span></br>');
+                            li.append(checkBox);
+                            $("#rspUser").append(li);
+                        }
+
+                    }
+                },
+                error: function (XMLHttpRequest) {
+                    alert("服务忙，请重试", "提示框");
+                }
+            });
+
+        }
+
+        function showFriends() {
+            $.ajax({
+                type: "POST",
+                url: "/helper/userInfo/getUserFriends",
+                data: "{\"token\":\"" + token + "\"}",
+                dataType: "json",
+                contentType: "application/json",
+                success: function (data) {
+                    if (data.resCode == "100000") {
+                        var userList = data.object;
+                        var length = userList.length;
+                        $("#friendList").empty();
+                        var table = $('<table></table>');
+                        for (var i = 0; i < length; i++) {
+                            var user = userList[i];
+                            var tr = $('<tr></tr>');
+                            var th1 = $('<th></th>');
+                            var th2 = $('<th></th>');
+
+                            if (user.gender == null || user.gender == "") {
+                                var src = "/helper/images/dH.png";
+                            } else if (user.gender == 1) {
+                                var src = "/helper/images/mH.jpg";
+                            } else if (user.gender == 2) {
+                                var src = "/helper/images/wH.jpg";
+                            }
+                            var img = $('<img src=' + src + ' style="height:50px;width:50px" onclick="javascript:test();">');
+                            var imgS = user.remarkName == null ? user.nickName : user.remarkName;
+                            console.log(imgS);
+                            var span = $('<span>' + imgS + '</span>')
+                            span.innerHTML =
+                                th1.append(img);
+                            th2.append(span);
+                            tr.append(th1);
+                            tr.append(th2);
+                            table.append(tr);
+                        }
+                        $("#friendList").append(table);
+                    } else {
+                        $("#friendList").append($('<span>还没有好友，感觉添加一个吧</span>'));
+                    }
+                    console.log(data);
+                },
+                error: function (XMLHttpRequest) {
+                    alert("服务忙，请重试", "提示框");
+                }
+            });
+        }
+
+        //点击图片
+        function test() {
+            var div =$('<div class="chat"></div>')
+            var titleDiv = $('<div class="title"></div>');
+            var closeBtn = $('<button class="close" onclick="closeWebSocket()">Close</button>');
+            var messageDiv = $('<div class="message"></div>');
+            var talkDiv = $('<div class="talk"></div>');
+            var editZoneDiv = $('<div class="editZone"></div>');
+            var text = $('<input class="text" type="text"/>');
+            var sendBtn = $('<button class="send" onclick="send()">Send</button>');
+            editZoneDiv.append(text);
+            editZoneDiv.append(sendBtn);
+            messageDiv.append(talkDiv);
+            titleDiv.append(closeBtn);
+            div.append(titleDiv);
+            div.append(messageDiv);
+            div.append(editZoneDiv) ;
+            // $('#talk_con').append(titleDiv)
+            // $('#talk_con').append(messageDiv)
+            // $('#talk_con').append(editZoneDiv)
+            $('#talk_con').append(div)
+
+        }
+    </script>
+</head>
+<body>
+<div id="talk_con">
+    <div id="menu">menu
+        <input type="hidden" id="user">
+        <div id="addfreind">
+            <!--<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addfriends">添加好友</button>-->
+            <button id="add" data-toggle="modal" data-target="#addfriends">添加好友</button>
+        </div>
+        <div id="friendList">
+        </div>
+    </div>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="addfriends" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        添加好友
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    输入用户名/手机号<input id="serchParam" type="text">
+                    <button id="add" onclick="serchUsers()">点击查询</button>
+                    <div id="friendShow">
+                        <ul id="rspUser"></ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="addFriend()">
+                        确认添加
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    <!--头部显示-->
+    <div id="title">title
+    <button id="close" onclick="closeWebSocket()">Close</button>
+    </div>
+    <!--消息展示区-->
+    <div id="message">
+    <div class="talk"></div>
+    </div>
+    <!--编辑区-->
+    <div id="editZone">
+    <input id="text" type="text"/>
+    <button id="send" onclick="send()">Send</button>
+    </div>
+</div>
+</body>
+
+
+</html>

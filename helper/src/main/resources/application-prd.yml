@@ -1,0 +1,56 @@
+server:
+    port: 8001
+jdbc:
+    driverClassName: com.mysql.jdbc.Driver
+    password: 'xrln_47928@love'
+    url: 'jdbc:mysql://211.149.178.158:3306/helper'
+    username: 'xibushuju'
+spring:
+  http:
+    multipart:
+        max-file-size: 5MB
+        max-request-size: 100MB
+  redis:
+    maxIdle: 30
+    maxTotal: 50
+    timeBetweenEvictionRunsMillis: 30000
+    testOnBorrow: true
+    host: '211.149.178.158'
+    port: 6379
+    database: 4
+    password: xrln47928@love
+    url: 'http://211.149.178.158:6379/4'
+    url2: 'http://211.149.178.158:6379/4'
+    cluster:
+      nodes: '211.149.178.158:6379'
+      max-redirects: 3
+mongo:
+    autoConnectRetry: 1
+    collection:
+        discount: discount
+        member: memberInfo
+        receipt: receipt
+        receipt_exception: receiptException
+    connectTimeout: 1000
+    connectionsPerHost: 8
+    credentials: 'allen:xrln47928@211.149.178.158:27017/admin'
+    dbname: admin
+    host: '211.149.178.158'
+    maxWaitTime: 1500
+    port: 27017
+    replicaset: '211.149.178.158:27017'
+    slaveOk: 1
+    socketKeepAlive: 0
+    socketTimeout: 1500
+    threadsAllowedToBlockForConnectionMultiplier: 4
+    writeConcern: SAFE
+QRCodePath: '/opt/appData/images/qrCode/'
+logging:
+  path: '/opt/apps/log/helper/'
+filePath: '/home/cloudDB/'
+#上传下载
+breakpoint:
+  upload:
+    dir: /home/clddb
+    #1024*1024=1 048 576,5M=5 242 880
+    chunkSize: 5 242 880

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcom to Our Wedding</title>
+    <style>
+        div #title{
+            float:left;
+            border:1px solid #ccc;
+        }
+        div #title{
+            cursor:pointer;
+            height:50px;
+            transition:opacity 2s;
+            width:50px;
+            background:#000;
+            float:left;
+            margin:5px;
+            opacity:0;
+        }
+        div #title:hover{
+            opacity:1;
+            transition-duration:0s;
+        }
+    </style>
+    <script th:src="@{/js/jquery-1.7.2.min.js}" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div id="title" th:replace="bus/incTemp/titlePage::html" ></div>
+<div id="content" th:replace="bus/incTemp/contentPage::html" ></div>
+<div id="end" th:replace="bus/incTemp/endPage::html" ></div>
+</body>
+</html>

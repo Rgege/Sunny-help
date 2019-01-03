@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!--<link rel="stylesheet" th:href="@{/font-awesome/css/font-awesome.css}"/>-->
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}"
+          href="../../static/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-select.min.css}"
+          href="../../static/bootstrap/css/bootstrap-select.min.css"/>
+    <link rel="stylesheet" th:href="@{/sweetalert/sweetalert.css}" href="../../static/sweetalert/sweetalert.css"
+          type="text/css"/>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-datetimepicker.min.css}"
+          href="../../static/bootstrap/css/bootstrap-datetimepicker.min.css"
+          type="text/css"/>
+    <style>
+        #resultShow {
+            /*width: 60%;*/
+            height: 470px;
+        }
+    </style>
+    <script th:src="@{/bootstrap/js/Popper.min.js}" src="../../static/bootstrap/js/Popper.min.js" type="text/javascript"
+            charset="utf-8"></script>
+    <script th:src="@{/js/jq/jquery-3.3.1.js}" src="../../static/js/jq/jquery-3.3.1.js" type="text/javascript"
+            charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}" src="../../static/bootstrap/js/bootstrap.min.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/bootstrap-select.min.js}" src="../../static/bootstrap/js/bootstrap-select.min.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/sweetalert/sweetalert.js}" src="../../static/sweetalert/sweetalert.js" type="text/javascript"
+            charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/bootstrap-select.min.js}" src="../../static/bootstrap/js/bootstrap-select.min.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/bootstrap-datetimepicker.min.js}"
+            src="../../static/bootstrap/js/bootstrap-datetimepicker.min.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/bootstrap-datetimepicker.zh-CN.js}"
+            src="../../static/bootstrap/js/bootstrap-datetimepicker.zh-CN.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/moment-with-locales.js}" src="../../static/bootstrap/js/moment-with-locales.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/bootstrap-paginator.js}" src="../../static/bootstrap/js/bootstrap-paginator.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/js/bus/bookkeeping/common.js}" src="../../static/js/bus/bookkeeping/common.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        function show() {
+            var v = document.getElementById("STATUS").value;
+            var i = document.getElementById("idNum");
+            var s = document.getElementById("school");
+            var y = document.getElementById("year");
+            var t = document.getElementById("type");
+            if (v == 0) {
+                i.style.display = "";
+            } else {
+                i.style.display = "none";
+            }
+            if (v == 1) {
+                s.style.display = "";
+            } else {
+                s.style.display = "none";
+            }
+            if (v == 2) {
+                y.style.display = "";
+            } else {
+                y.style.display = "none";
+            }
+            if (v == 3) {
+                t.style.display = "";
+            } else {
+                t.style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+<form action="SelectServlet" method="post">
+    <table>
+        <tr height="22">
+            <td align=right >分类查询：</td>
+            <td align=left >
+                <select name="STATUS" id="STATUS" style="width:80" onchange="show()">
+                    <option value="0">按批准码查询</option>
+                    <option value="1" >按学校查询</option>
+                    <option value="2">按批准年份查询</option>
+                    <option value="3">按项目类别查询</option>
+                       </select>
+            </td>
+            <td>
+                <div style="display: none;" id="idNum">
+                    <input type="text" name="idNum" size="20" placeholder="请输入完整的批准码">
+                </div>
+            </td>
+
+            <td>
+                <div style="display: none;" id="school">
+                    <select name="school" >
+                        <option value="湖南中医药大学">湖南中医药大学</option>
+                        <option value="天津中医药大学" >天津中医药大学</option>
+                        <option value="北京中医药大学">北京中医药大学</option>
+                        <option value="福建中医药大学">福建中医药大学</option>
+                        <option value="湖北中医药大学">湖北中医药大学</option>
+
+                    </select>
+                </div>
+            </td>
+            <td>
+                <div style="display: none;" id="year">
+                    <input type="text" name="year" size="20" placeholder="请在1986到2017年之间查询">
+                </div>
+            </td>
+
+            <td>
+                <div style="display: none;" id="type">
+                    <select name="type" >
+                        <option value="面上项目">面上项目</option>
+                        <option value="青年科学基金项目" >青年科学基金项目</option>
+                        <option value="地区科学基金项目">地区科学基金项目</option>
+                        <option value="专项基金项目">专项基金项目</option>   
+                    </select>
+                </div>
+            </td>
+            <td><input type="submit" value="提交"></td>
+        </tr>   
+    </table>
+</form>
+
+</body>
+</html>

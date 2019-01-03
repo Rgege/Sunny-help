@@ -1,0 +1,37 @@
+html,body {height: 100%;}
+body {
+    padding: 0px;
+    margin:0px;
+    background:url(../images/dabai.jpg) ;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+.top{
+    border:red solid thin;
+    width: 100%;
+    height: 80px;
+    text-align: center;
+    position: relative;
+    left: 0px;
+    top: 10px;
+}
+.menu{
+    border: #2324ff solid thin;
+    width: 100%;
+    height: 335px;
+    text-align: center;
+    position: absolute;
+    left: 0px;
+    top: 100px;
+}
+.preview{
+    border: #41ff0b solid thin;
+    width: 100%;
+    height: 80px;
+    text-align: center;
+    position: absolute;
+    left: 0px;
+    top: 440px;
+}

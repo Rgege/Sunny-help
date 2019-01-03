@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>file</title>
+    <!--<style>-->
+        <!--*{-->
+            <!--margin:0;-->
+            <!--padding:0;-->
+        <!--}-->
+        <!--body{-->
+            <!--font-family:"微软雅黑";-->
+            <!--background-color:#ddd;-->
+        <!--}-->
+        <!--#fileList{-->
+            <!--width:760px;-->
+            <!--height:600px;-->
+            <!--background:#fff;-->
+            <!--margin:30px auto;-->
+            <!--padding:20px;-->
+        <!--}-->
+        <!--#fileList .head span{-->
+            <!--font-size:18px;-->
+            <!--color:#333;-->
+        <!--}-->
+        <!--#fileList .head{-->
+            <!--margin-bottom:20px;-->
+        <!--}-->
+        <!--#fileList .head a{-->
+            <!--text-decoration:none;-->
+            <!--float:right;-->
+            <!--font-size:15px;-->
+            <!--color:#333;-->
+        <!--}-->
+        <!--#fileList .head a:hover{-->
+            <!--color:#F00;-->
+        <!--}-->
+        <!--#fileList ul li{-->
+            <!--width:160px;-->
+            <!--height:240px;-->
+            <!--list-style:none;-->
+            <!--position:relative;-->
+            <!--float:left;-->
+            <!--margin-left:20px;-->
+            <!--margin-bottom:20px;-->
+            <!--overflow:hidden;-->
+        <!--}-->
+        <!--#fileList ul li .deatil{-->
+            <!--width:160px;-->
+            <!--height:240px;-->
+            <!--background:rgba(0,0,0,0.7);-->
+            <!--position:absolute;-->
+            <!--top:-240px;-->
+             <!-- -webkit-transition:all 0.3s ease;/*适应ie，谷歌，苹果浏览器内核*/-->
+         <!-- -o-transition:all 0.3s ease;/*适应Opera浏览器内核*/-->
+         <!-- -moz-transition:all 0.3s ease;/*火狐浏览器*/-->
+         <!-- -ms-transition:all 0.3s ease;/*微软*/-->
+        <!--}-->
+        <!--#fileList ul li .deatil h2{-->
+            <!--font-size:18px;-->
+            <!--color:#fff;-->
+            <!--text-align:center;-->
+            <!--padding-top:30px;-->
+        <!--}-->
+        <!--#fileList ul li .deatil p{-->
+            <!--font-size:16px;-->
+            <!--text-align:center;-->
+            <!--margin:30px;-->
+            <!--color:#fff;-->
+        <!--}-->
+        <!--#fileList ul li .deatil #download{-->
+            <!--font-size:15px;-->
+            <!--display:block;-->
+            <!--color:#fff;-->
+            <!--background-color:#F00;-->
+            <!--text-decoration:none;-->
+            <!--width:100px;-->
+            <!--height:40px;-->
+            <!--text-align:center;-->
+            <!--line-height:40px;-->
+            <!--margin:0 auto;-->
+        <!--}-->
+        <!--#fileList ul li:hover .deatil{-->
+            <!--top:0;-->
+        <!--}-->
+    <!--</style>-->
+    <script th:src="@{/js/jquery-1.7.2.min.js}" type="text/javascript" charset="utf-8"></script>
+    <script>
+        $(document).ready(function() {
+            showFileList();
+        });
+        function doUpload() {
+            var formData = new FormData($('#uploadForm')[0]);
+            $.ajax({
+                type: 'post',
+                url: "/helper/file/upload",
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false,
+            }).success(function (data) {
+                alert(data);
+            }).error(function () {
+                alert("上传失败");
+            });
+        }
+        function doDownload(fileName) {
+            if(fileName==null){
+                var fileName = $("#fileName").val();
+            }
+            var url= "/helper/file/doPost";
+            var data= "{\"fileName\":\"" + fileName + "\"}";
+            window.location.href="/helper/file/doGet?fileName="+fileName;
+        }
+        function showName() {
+            $("#uploadFile").val($("#file").val());
+        }
+        function showFileList() {
+            $.ajax({
+                type: 'post',
+                url: "/helper/file/showFileList",
+                data: "{\"fileName\":\"" + "121" + "\"}",
+                dataType: "json",
+                contentType: "application/json",
+            }).success(function (data) {
+                var fileList=data.object;
+                console.log(fileList.length)
+                var length=fileList.length;
+                var ul=$('<ul></ul>');
+                for (var i = 0; i < length; i++) {
+                    var fileName = fileList[i].fileName
+                    var downLoadUrl="/helper/file/doGet?fileName="+fileName;
+                    var li=$('<li style="background-size: 100px,100px"></li>');
+                    var dev=$('<div class="deatil"></div>');
+                    var h2=$('<h2></h2>');
+                    var p=$('<p>'+fileName+'</p>');
+                    var btn=$('<button id="download" onclick="doDownload(\''+fileName+'\')">点击下载</button>');
+                    var icon=getIcon(getSuffix(fileName));
+                    // var i=new Image();
+                    // i.src='../../icons/t.jpg';
+                    // documeng.body.appendChild(i);
+                    dev.append(h2);
+                    dev.append(p);
+                    dev.append(btn);
+                    li.append(dev);
+                    li.append(icon);
+                    ul.append(li);
+
+                }
+                $("#fileList").append(ul);
+            }).error(function () {
+                alert("上传失败");
+            });
+        }
+        function getSuffix(fileName) {
+            var index1=fileName.lastIndexOf(".");
+            var index2=fileName.length;
+            var suffix=fileName.substring(index1+1,index2);//后缀名
+            return suffix;
+        }
+        function getIcon(suffix) {
+
+            if(suffix.toUpperCase()=="DOC"){
+                var icon=$('<img th:src="@{/images/fileIcon/DOC.png}" width="256px" height="256px" alt=""/>');
+            }else if(suffix.toUpperCase()=="TXT"){
+                var icon=$('<img th:src="@{/images/fileIcon/TXT.png}" width="256px" height="256px" alt=""/>');
+            }else if(suffix.toUpperCase()=="ZIP"){
+                var icon=$('<img th:src="@{/images/fileIcon/ZIP.png}" width="256px" height="256px" alt=""/>');
+            }else if(suffix.toUpperCase()=="RAR"){
+                var icon=$('<img th:src="@{/images/fileIcon/RAR.png}" width="256px" height="256px" alt=""/>');
+            }else if(suffix.toUpperCase()=="DOCX"){
+                var icon=$('<img th:src="@{/images/fileIcon/DOCX.png}" width="256px" height="256px" alt=""/>');
+            }else if(suffix.toUpperCase()=="PPT"){
+                var icon=$('<img th:src="@{/images/fileIcon/PPT.png}" width="256px" height="256px" alt=""/>');
+            }else if(suffix.toUpperCase()=="XLS"){
+                var icon=$('<img th:src="@{/images/fileIcon/xls.png}" width="256px" height="256px" alt=""/>');
+            }else if(suffix.toUpperCase()=="XLSX"){
+                var icon=$('<img th:src="@{/images/fileIcon/XLSX.png}" width="256px" height="256px" alt=""/>');
+            }
+            return icon;
+        }
+    </script>
+</head>
+<body>
+<div id="top">
+    <form id="uploadForm" enctype="multipart/form-data">
+        文件上传:<input id="uploadFile" type="text"><input id="file" type="file" name="file"  onchange="showName()"/><br>
+        文件名<input id="fileName" type="text"/>
+    </form>
+</div>
+<button id="upload" onclick="doUpload()">上传文件</button>
+<button id="download" onclick="doDownload()">下载文件</button>
+<div id="fileList">
+</div>
+</body>
+</html>

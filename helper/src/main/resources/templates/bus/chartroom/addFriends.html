@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no">
+    <!--自动将网页中的电话号码显示为拨号的超链接-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <!--width宽度height高度，initial-scale初始的缩放比例，minimum-scale允许缩放到的最小比例，maximum-scale允许缩放到的最大比例，user-scalable是否可以手动缩放-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!--IOS设备-->
+    <meta name="apple-touch-fullscreen" content="yes">
+    <!--IOS设备-->
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <title>添加朋友</title>
+    <link rel="stylesheet" th:href="@{/weui/css/weui.css}"/>
+    <link rel="stylesheet" th:href="@{/weui/css/weui.min.css}"/>
+    <link rel="stylesheet" th:href="@{/weui/css/jquery-weui.css}"/>
+    <link rel="stylesheet" th:href="@{/weui/css/jquery-weui.min.css}"/>
+    <link rel="stylesheet" th:href="@{/font-awesome/css/font-awesome.css}"/>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/weui/css/example.css}"/>
+    <style>
+        .weui_navbar {
+            position: fixed;
+            /*background-color: rgba(0, 5, 7, 0.99);*/
+            background-color: #d3d3d3;
+            font-size: 35px;
+            height: 50px;
+            position: relative;
+        }
+        .weui_navbar #back{
+            font-size: 20px;
+            color: black;
+            width: 40px;
+            height: 40px;
+            margin-left: 4px;
+            margin-top: 20px;
+        }
+        .weui_navbar #title {
+            width: 33px;
+            height: 33px;
+            position: absolute;
+            margin-left: 40%;
+            /*top: 0;*/
+            /*left: 0;*/
+            /*right: 0;*/
+            bottom: 0;
+            color: black;
+            font-size: 20px;
+
+            /*设置文本垂直居中*!*/
+            line-height: 30px;
+            /*设置文本水平居中*!*/
+            text-align: center;
+        }
+        .weui_navbar #title p{
+            width:100px;
+            word-break:keep-all;
+            white-space:nowrap;
+        }
+    </style>
+    <script th:src="@{/js/jq/jquery-3.3.1.js}" type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}" type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/weui/js/jquery-weui.js}" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<nav class="weui_navbar">
+    <div id="title"><p>添加好友</p></div>
+    <a id="back" th:href="@{/chartRoom/panel}">返回</a>
+</nav>
+<div class="searchbar">
+    <!--<div class="hd">-->
+        <!--<h1 class="page_title">searchBar</h1>-->
+    <!--</div>-->
+    <div class="bd">
+        <!--<a href="javascript:;" class="weui_btn weui_btn_primary">点击展现searchBar</a>-->
+        <div class="weui_search_bar" id="search_bar">
+            <form class="weui_search_outer">
+                <div class="weui_search_inner">
+                    <i class="weui_icon_search"></i>
+                    <input class="weui_search_input" id="search_input" placeholder="手机号/账号" required="">
+                    <a href="javascript:" class="weui_icon_clear" id="search_clear"></a>
+                </div>
+                <label for="search_input" class="weui_search_text" id="search_text">
+                    <i class="weui_icon_search"></i>
+                    <span>搜索</span>
+                </label>
+            </form>
+            <a href="javascript:" class="weui_search_cancel" id="search_cancel">取消</a>
+        </div>
+        <div class="weui_cells weui_cells_access search_show" id="search_show">
+            <div class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>实时搜索文本</p>
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>实时搜索文本</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
