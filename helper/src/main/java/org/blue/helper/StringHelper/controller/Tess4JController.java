@@ -36,13 +36,13 @@ public class Tess4JController extends BaseController {
     @RequestMapping("dealImg")
     @ResponseBody
     public Map<String,Object> dealImg(MultipartFile file, HttpServletRequest request){
-
+        service.extractCharFromImg(file);
         return ResultUtil.commonError();
     }
     @RequestMapping("dealPdf")
     @ResponseBody
     public Map<String,Object> dealPdf(MultipartFile file, HttpServletRequest request){
-
+        service.extractCharFromPdf(file);
         return ResultUtil.commonError();
     }
 }
