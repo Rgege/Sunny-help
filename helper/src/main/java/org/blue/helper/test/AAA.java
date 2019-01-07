@@ -83,6 +83,13 @@ public class AAA {
 //        }
         for (int i = 1; i <2593 ; i++) {
             File xFile=new File("C:\\Users\\Administrator\\Desktop\\zifuji\\tmp\\wait.tmp");
+            if (!xFile.exists()){
+                try {
+                    xFile.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             if (i % 36 == 0) {
                 try (BufferedWriter bw = new BufferedWriter(new FileWriter(new File("C:\\Users\\Administrator\\Desktop\\zifuji\\bat\\"+i+".bat")))) {
                     bw.write("@echo off\n" +
@@ -103,16 +110,15 @@ public class AAA {
                     bw.write("cd C:\\Users\\Administrator\\Desktop\\zifuji\\imgs");
                     bw.write("\n");
                     bw.write("tesseract ch.normal.exp"+i+".tif ch.normal.exp"+i+" -l chi_sim batch.nochop makebox");
-//                    bw.write("del C:\\Users\\Administrator\\Desktop\\zifuji\\tmp\\wait.tmp");
+                    bw.write("\n");
+                    bw.write("del C:\\Users\\Administrator\\Desktop\\zifuji\\tmp\\wait.tmp");
                     bw.flush();
                 } catch (IOException e) {
                     throw new HelperException(e);
                 }
-                CmdComandUtil.excutBat("C:\\Users\\Administrator\\Desktop\\zifuji\\bat\\"+i+".bat");
+                CmdComandUtil.excutBat("C:\\Users\\Administrator\\Desktop\\zifuji\\bat\\"+i+".bat",xFile);
             }
-            while (xFile.exists()){
-                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>deal ing");
-            }
+
         }
     }
 

@@ -93,7 +93,7 @@ public class CmdComandUtil {
             throw new HelperException(e);
         }
         if (batFile.exists()) {
-            excutBat("D:\\XR@bl\\mvnInstall.bat");
+            excutBat("D:\\XR@bl\\mvnInstall.bat",new File(""));
         }
     }
 
@@ -126,7 +126,7 @@ public class CmdComandUtil {
                 throw new HelperException(e);
             }
             if (batFile.exists()) {
-                excutBat("D:\\XR@bl\\mvnInstall.bat");
+                excutBat("D:\\XR@bl\\mvnInstall.bat",new File(""));
             }
 
             while (!file.exists()) {
@@ -203,7 +203,7 @@ public class CmdComandUtil {
         }
     }
 
-    public static void excutBat(String batUrl) {
+    public static void excutBat(String batUrl,File file) {
         //执行批处理文件
         String strcmd = "cmd /c start  " + batUrl;
         Runtime rt = Runtime.getRuntime();
@@ -229,6 +229,10 @@ public class CmdComandUtil {
         //批处理执行完后，根据cmd.exe进程名称 kill掉cmd窗口(这个方法是好不容易才找到了，网上很多介绍的都无效)
 //        killProcess();
 //        callBack.callBack();
+        CmdComandUtil util=new CmdComandUtil();
+        while (file.exists()){
+            log.debug("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<bat runing>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        }
     }
 
     public static void killProcess() {
