@@ -203,7 +203,7 @@ public class CmdComandUtil {
         }
     }
 
-    private static void excutBat(String batUrl) {
+    public static void excutBat(String batUrl) {
         //执行批处理文件
         String strcmd = "cmd /c start  " + batUrl;
         Runtime rt = Runtime.getRuntime();

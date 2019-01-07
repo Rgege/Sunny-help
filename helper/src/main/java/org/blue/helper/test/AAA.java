@@ -9,6 +9,8 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import net.sourceforge.tess4j.util.ImageIOHelper;
+import org.blue.helper.StringHelper.common.exception.HelperException;
+import org.blue.helper.StringHelper.utils.CmdComandUtil;
 import org.blue.helper.test.util.TextToImage;
 
 import javax.imageio.*;
@@ -68,18 +70,50 @@ public class AAA {
 //            e.printStackTrace();
 //        }
 //        slipt(f2);
+//        for (int i = 1; i <2593 ; i++) {
+//            if (i % 36 == 0) {
+//                jpg2Tif("C:\\Users\\Administrator\\Desktop\\zifuji\\imgs\\" + i + ".jpg",
+//                        "C:\\Users\\Administrator\\Desktop\\zifuji\\imgs\\ch.normal.exp" + i + ".tif");
+//            }
+//        }
+//        try {
+//            CmdComandUtil.executeCmd("tesseract ch.normal.exp0.tif ch.normal.exp0 -l chi_sim batch.nochop makebox");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         for (int i = 1; i <2593 ; i++) {
+            File xFile=new File("C:\\Users\\Administrator\\Desktop\\zifuji\\tmp\\wait.tmp");
             if (i % 36 == 0) {
-                List<File> var10 = new ArrayList<>();
-                File file = new File("C:\\Users\\User\\Desktop\\zifuji\\imgs\\" + i + ".jpg");
-                File tifFile = new File("C:\\Users\\User\\Desktop\\zifuji\\imgs\\ch.normal.exp" + i + ".tif");
-                var10.add(file);
-                mergeTiff(var10, i+"",tifFile);
-                jpg2Tif("C:\\Users\\User\\Desktop\\t\\36.jpg",
-                        "C:\\Users\\User\\Desktop\\t\\36.tif");
+                try (BufferedWriter bw = new BufferedWriter(new FileWriter(new File("C:\\Users\\Administrator\\Desktop\\zifuji\\bat\\"+i+".bat")))) {
+                    bw.write("@echo off\n" +
+                            ">nul 2>&1 \"%SYSTEMROOT%\\system32\\cacls.exe\" \"%SYSTEMROOT%\\system32\\config\\system\"\n" +
+                            "if '%errorlevel%' NEQ '0' (\n" +
+                            "goto UACPrompt\n" +
+                            ") else ( goto gotAdmin )\n" +
+                            ":UACPrompt\n" +
+                            "echo Set UAC = CreateObject^(\"Shell.Application\"^) > \"%temp%\\getadmin.vbs\"\n" +
+                            "echo UAC.ShellExecute \"%~s0\", \"\", \"\", \"runas\", 1 >> \"%temp%\\getadmin.vbs\"\n" +
+                            "\"%temp%\\getadmin.vbs\"\n" +
+                            "exit /B\n" +
+                            ":gotAdmin\n" +
+                            "if exist \"%temp%\\getadmin.vbs\" ( del \"%temp%\\getadmin.vbs\" )\n" +
+                            "\n");
+                    bw.write("@echo off");
+                    bw.write("\n");
+                    bw.write("cd C:\\Users\\Administrator\\Desktop\\zifuji\\imgs");
+                    bw.write("\n");
+                    bw.write("tesseract ch.normal.exp"+i+".tif ch.normal.exp"+i+" -l chi_sim batch.nochop makebox");
+//                    bw.write("del C:\\Users\\Administrator\\Desktop\\zifuji\\tmp\\wait.tmp");
+                    bw.flush();
+                } catch (IOException e) {
+                    throw new HelperException(e);
+                }
+                CmdComandUtil.excutBat("C:\\Users\\Administrator\\Desktop\\zifuji\\bat\\"+i+".bat");
+            }
+            while (xFile.exists()){
+                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>deal ing");
             }
         }
-
     }
 
     public static void slipt(File f2) {
