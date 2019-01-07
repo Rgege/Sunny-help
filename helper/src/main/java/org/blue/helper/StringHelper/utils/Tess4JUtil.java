@@ -39,11 +39,11 @@ public class Tess4JUtil {
     }
 
     public static void main(String[] args) {
-        File imageFile = new File("D:\\1.pdf");
+        File imageFile = new File("D:\\2.png");
         try {
-            System.out.println(doOCR_File("D:\\1.pdf",Tess4jLanguages.CNSMP.getLan()));
+//            System.out.println(doOCR_File("D:\\1.pdf",Tess4jLanguages.CNSMP.getLan()));
 
-//            System.out.println(doOCR_BufferedImage(getBufferedImage(new FileInputStream(imageFile)),Tess4jLanguages.CNSMP.getLan()));
+            System.out.println(doOCR_SkewedImage(getBufferedImage(new FileInputStream(imageFile)),Tess4jLanguages.CNSMP.getLan()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -197,6 +197,7 @@ public class Tess4JUtil {
         logger.info("doOCR on a skewed PNG image");
         ImageDeskew id = new ImageDeskew(bi);
         double imageSkewAngle = id.getSkewAngle(); // determine skew angle
+        logger.info(">>>>>>>>>>>>>>>>>>>>>>>>imageSkewAngle:"+imageSkewAngle);
         if ((imageSkewAngle > MINIMUM_DESKEW_THRESHOLD || imageSkewAngle < -(MINIMUM_DESKEW_THRESHOLD))) {
             bi = ImageHelper.rotateImage(bi, -imageSkewAngle); // deskew image
         }
