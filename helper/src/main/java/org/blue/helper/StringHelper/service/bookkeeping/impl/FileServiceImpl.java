@@ -14,7 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-@Service
+@Service("BookFileServiceImpl")
 public class FileServiceImpl implements FileService {
     private static final Logger LOGGER=LoggerFactory.getLogger(FileServiceImpl.class);
 
