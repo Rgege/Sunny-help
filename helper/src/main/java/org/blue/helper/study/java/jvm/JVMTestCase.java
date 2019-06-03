@@ -16,6 +16,7 @@
 package org.blue.helper.study.java.jvm;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,9 @@ public class JVMTestCase {
 //            getCode("");
 //          testPretenureSizeThreshold();
 //            fillHeap(1000);
-            testThreadStatus();
+//            testThreadStatus();
+
+            bTraceTest();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -200,6 +203,20 @@ public class JVMTestCase {
 
         }
 
+    }
+
+    public int add(int a,int b){
+        return a+b;
+    }
+    public static void bTraceTest()throws IOException {
+        JVMTestCase test=new JVMTestCase();
+        BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
+        for(int i=0;i<10;i++){
+            reader.readLine();
+            int a=(int)Math.round(Math.random()*1000);
+            int b=(int)Math.round(Math.random()*1000);
+            System.out.println(test.add(a,b));
+        }
     }
 
 
