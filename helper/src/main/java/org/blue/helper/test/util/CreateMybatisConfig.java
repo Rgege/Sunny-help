@@ -26,12 +26,12 @@ public class CreateMybatisConfig {//
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>input [1:createPersistence   |  2:copyToYourProject]");
         int i=sc.nextInt();
         System.out.println(i);
-        run(i,"cloud_storage","CloudStorage");
+        run(i,"jvm_oeder","JvmOeder");
     }
 
     private static void run(int i,String tableName,String objName){
         CreateMybatisConfig tool = new CreateMybatisConfig();
-        CreateMybatisConfig.Entity entity = tool.creatEntity("jdbc:mysql://localhost:3306/local", "root", null);
+        CreateMybatisConfig.Entity entity = tool.creatEntity("jdbc:mysql://localhost:3306/test2", "root", null);
         entity.setTbName(tableName);
         entity.setObjName(objName);
         entity.setDriverClass("com.mysql.jdbc.Driver");
@@ -354,7 +354,9 @@ public class CreateMybatisConfig {//
         varchar_type("varchar", "VARCHAR"),
         double_type("double", "DOUBLE"),
         int_type("int", "INTEGER"),
-        date_type("datetime", "DATE"),;
+        date_type("datetime", "DATE"),
+        text_type("text","LONGVARCHAR")
+        ;
         String org;
         String show;
 
@@ -394,7 +396,8 @@ public class CreateMybatisConfig {//
         varchar_type("varchar", "String"),
         double_type("double", "Double"),
         int_type("int", "Integer"),
-        date_type("datetime", "java.sql.Timestamp"),;
+        date_type("datetime", "java.sql.Timestamp"),
+        text_type("text","String");
         String org;
         String show;
 

@@ -219,19 +219,19 @@ public class HttpRequestUtil {
     }
 
     public static void main(String[] args) {
-        for (int i = 0; i <1000 ; i++) {
-            try {
-                Thread.sleep(5000);
-                test();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                continue;
-            }
-        }
+//        for (int i = 0; i <1000 ; i++) {
+//            try {
+//                Thread.sleep(5000);
+//                test();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//                continue;
+//            }
+//        }
         int num=0;
         while (true){
             if (num==10) break;
-            String url="http://10.201.128.125:7220/memberAdmin/mdm/fetch.htm";
+            String url="http://10.201.32.153:7082/memberAdmin/mdm/fetch.htm";
             String result=doGet(url);
             System.out.println(result);
             if(result.indexOf("查询结果为空") != -1){

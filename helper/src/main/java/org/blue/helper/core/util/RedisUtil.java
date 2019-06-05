@@ -1,5 +1,7 @@
 package org.blue.helper.core.util;
 
+import org.apache.commons.lang3.StringUtils;
+import org.blue.helper.StringHelper.utils.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
@@ -1117,5 +1119,42 @@ public class RedisUtil {
             if (expire == 1) return true;
             else return false;
         } else return false;
+    }
+
+    public Boolean lock(String key,int seconds){
+        boolean locak=false;
+        ShardedJedis shardedJedis = null;
+        long ret = 0;
+        try {
+            shardedJedis = shardedJedisPool.getResource();
+            ret = shardedJedis.setnx(key, getExpireTime(seconds));
+            if (ret==1){
+                locak=true;
+            }else {
+                String oldExpireTime=shardedJedis.get(key);
+                if (StringUtils.isNotBlank(oldExpireTime)){
+                    if (Long.parseLong(oldExpireTime)<new Date().getTime()){//过期时间小于当前时间 说明所以过期  否则说明锁正在被使用切没过期
+                        if (StringUtils.equals(oldExpireTime,shardedJedis.getSet(key,getExpireTime(seconds)))){
+                            //如果getset返回的过期时间与刚刚的old过期时间相同 说明在此期间没有别的人获取锁  加锁成功
+                            //否则 就说明在此期间锁又被别人请求走了 加锁失败
+                            locak=true;
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            logger.error("get error.", ex);
+            returnBrokenResource(shardedJedis);
+        } finally {
+            returnResource(shardedJedis);
+        }
+
+        return locak;
+    }
+
+    private static String getExpireTime(int seconds){
+        Date now=new Date();
+        Date expireDate=DateUtil.getSpecifiedDayBySecond(now,seconds);
+        return expireDate.getTime()+"";
     }
 }

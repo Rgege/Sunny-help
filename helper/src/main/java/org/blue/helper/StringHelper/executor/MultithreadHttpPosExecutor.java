@@ -1,7 +1,6 @@
 package org.blue.helper.StringHelper.executor;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.blue.helper.StringHelper.service.bailian.GrowthValueService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +15,12 @@ public class MultithreadHttpPosExecutor implements Runnable{
     private int start;
     private int end;
     private String url;
-    @Autowired
-    private GrowthValueService growthValueService;
+
 
     @Override
     public void run() {
         List<String> subList = data.subList(start, end);
         logger.info(Thread.currentThread().getName()+"分配了"+subList.size()+"条:"+ArrayUtils.toString(subList));
-        growthValueService.sendHttpPos(url,subList);
     }
 
     public List<String> getData() {

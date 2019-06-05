@@ -15,12 +15,14 @@ public class SimpleThreadClient {
         try (
                 Socket client = new Socket();
         ) {
-            client.connect(new InetSocketAddress("localhost", 8000));
+            client.connect(new InetSocketAddress("211.149.203.249", 8080));
             writer = new PrintWriter(client.getOutputStream(), true);
             reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-            writer.println("Hello!");
-            writer.flush();
-            System.out.println("from server: " + reader.readLine());
+            for (int i = 0; i <20 ; i++) {
+                writer.println("Hello!");
+                writer.flush();
+                System.out.println("from server: " + reader.readLine());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
