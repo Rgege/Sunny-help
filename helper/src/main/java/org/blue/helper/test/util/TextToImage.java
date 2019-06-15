@@ -2,7 +2,7 @@ package org.blue.helper.test.util;
 
 /**
  * @Description <P></P>
- * @Author v-Rui.Xiong@bl.com
+ * @Author allen
  * @Date 2019/1/7
  * @Version 1.0.0
  **/

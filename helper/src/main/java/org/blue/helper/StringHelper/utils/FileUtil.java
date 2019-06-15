@@ -12,7 +12,7 @@ import java.util.concurrent.*;
 
 /**
  * @Description <P>文件处理类</P>
- * @Author v-Rui.Xiong@bl.com
+ * @Author allen
  * @Date 2018/12/28
  * @Version 1.0.0
  **/

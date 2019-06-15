@@ -19,7 +19,7 @@ public class CreateMybatisConfig {//
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateMybatisConfig.class);
     private static final String rootPart = "  </context>\n" +
             "</generatorConfiguration>";
-    private static final String xmlUrl = "D:\\XR@bl\\IdeaWorkspace\\sun\\src\\main\\resources\\GeneratorConfig.xml";
+    private static final String xmlUrl = "D:\\XR@aa.com\\IdeaWorkspace\\sun\\src\\main\\resources\\GeneratorConfig.xml";
 
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
@@ -35,13 +35,13 @@ public class CreateMybatisConfig {//
         entity.setTbName(tableName);
         entity.setObjName(objName);
         entity.setDriverClass("com.mysql.jdbc.Driver");
-        entity.setLocation("D:/XR@bl/devsoft/mvn/repository/mysql/mysql-connector-java/5.1.46/mysql-connector-java-5.1.46.jar");
+        entity.setLocation("D:/XR@aa.com/devsoft/mvn/repository/mysql/mysql-connector-java/5.1.46/mysql-connector-java-5.1.46.jar");
         entity.setJavaModelPath("org.blue.helper.StringHelper.persistence.entity.model");
         entity.setSqlMapPath("org.blue.helper.StringHelper.persistence");
         if (i==1){
-            createPersistence(entity, "D:\\XR@bl\\IdeaWorkspace\\sun");
+            createPersistence(entity, "D:\\XR@aa.com\\IdeaWorkspace\\sun");
         }else if (i==2){
-            copyToYourProject(entity, "D:\\XR@bl\\IdeaWorkspace\\sun");
+            copyToYourProject(entity, "D:\\XR@aa.com\\IdeaWorkspace\\sun");
         }
     }
 

@@ -46,7 +46,7 @@ spring:
 #    writeConcern: SAFE
 QRCodePath: 'C:\QRCode\'
 filePath: 'C:\testFile\'
-vouchersUrl: 'D:\XR@bl\testFile\'
+vouchersUrl: 'D:\XR@aa.com\testFile\'
 #上传下载
 breakpoint:
   upload:

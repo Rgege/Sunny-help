@@ -468,7 +468,7 @@ public class BruteForce {
     public static List<String> bruteForceIO(String initial) throws InterruptedException, IOException {
         int length = elements.length;
         List<String> buff = new ArrayList<String>();
-        File file=new File("D:\\XR@bl\\pwdDirct\\"+initial+"4.txt");
+        File file=new File("D:\\XR@aa.com\\pwdDirct\\"+initial+"4.txt");
         if(!file.exists()){
             file.createNewFile();
         }
@@ -511,7 +511,7 @@ public class BruteForce {
         int length = elements.length;
         StringBuffer sb = new StringBuffer();
 
-        File outFile=new File("D:\\XR@bl\\pwdDirct\\"+initial+num+".txt");
+        File outFile=new File("D:\\XR@aa.com\\pwdDirct\\"+initial+num+".txt");
         if(!file.exists()){
             outFile.createNewFile();
         }

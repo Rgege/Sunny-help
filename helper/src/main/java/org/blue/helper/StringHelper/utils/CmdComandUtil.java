@@ -64,7 +64,7 @@ public class CmdComandUtil {
     }
 
     public static void main(String[] args) {
-        mvnBuild("D:\\XR@bl\\IdeaWorkspace\\gateway-tools", new CallBackAfterBatFinish() {
+        mvnBuild("D:\\XR@aa.com\\IdeaWorkspace\\gateway-tools", new CallBackAfterBatFinish() {
             @Override
             public void callBack() {
                 System.out.println("111111111111111111111111");
@@ -74,7 +74,7 @@ public class CmdComandUtil {
 
     public static void mvnBuild(String projectUrl) {
 
-        File batFile = new File("D:\\XR@bl\\mvnInstall.bat");
+        File batFile = new File("D:\\XR@aa.com\\mvnInstall.bat");
         try {
             if (!batFile.exists()) batFile.createNewFile();
             else batFile.delete();
@@ -86,14 +86,14 @@ public class CmdComandUtil {
             bw.write("@echo off\n" +
                     "cd " + projectUrl + "\n" +
                     "D:\n" +
-                    "set JAVA_HOME=D:\\XR@bl\\devsoft\\java\\jdk1.8\n" +
+                    "set JAVA_HOME=D:\\XR@aa.com\\devsoft\\java\\jdk1.8\n" +
                     "mvn clean install");
             bw.flush();
         } catch (IOException e) {
             throw new HelperException(e);
         }
         if (batFile.exists()) {
-            excutBat("D:\\XR@bl\\mvnInstall.bat",new File(""));
+            excutBat("D:\\XR@aa.com\\mvnInstall.bat",new File(""));
         }
     }
 
@@ -107,7 +107,7 @@ public class CmdComandUtil {
             b=true;
         }
         if (b) {
-            File batFile = new File("D:\\XR@bl\\mvnInstall.bat");
+            File batFile = new File("D:\\XR@aa.com\\mvnInstall.bat");
             try {
                 if (!batFile.exists()) batFile.createNewFile();
                 else batFile.delete();
@@ -119,14 +119,14 @@ public class CmdComandUtil {
                 bw.write("@echo off\n" +
                         "cd " + projectUrl + "\n" +
                         "D:\n" +
-                        "set JAVA_HOME=D:\\XR@bl\\devsoft\\java\\jdk1.8\n" +
+                        "set JAVA_HOME=D:\\XR@aa.com\\devsoft\\java\\jdk1.8\n" +
                         "mvn clean install");
                 bw.flush();
             } catch (IOException e) {
                 throw new HelperException(e);
             }
             if (batFile.exists()) {
-                excutBat("D:\\XR@bl\\mvnInstall.bat",new File(""));
+                excutBat("D:\\XR@aa.com\\mvnInstall.bat",new File(""));
             }
 
             while (!file.exists()) {

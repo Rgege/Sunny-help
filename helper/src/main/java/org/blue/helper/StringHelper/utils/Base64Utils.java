@@ -20,7 +20,7 @@ public class Base64Utils {
 ////        Base64Utils.Base64ToImage(str,"C:/Users/Administrator/Desktop/test1.jpg");
 ////        Base64Utils.Base64ToImage(ste, "C:/Users/Administrator/Desktop/test2.jpg");
 
-            File flod=new File("D:\\XR@bl\\testFile\\3\\3_30353028b200ecd41500f9ddeecff306\\");
+            File flod=new File("D:\\XR@aa.com\\testFile\\3\\3_30353028b200ecd41500f9ddeecff306\\");
         flod.mkdirs();
         System.out.println(!flod.isDirectory());
     }
